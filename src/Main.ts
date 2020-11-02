@@ -1,17 +1,21 @@
-import * as fs from "fs";
-import * as path from "path";
-import {ResumeParser} from "./parser/ResumeParser";
+import as fs from "fs";
+const path = require('path');
+//import * as path from "path";
+const ResumeParser = require("./parser/ResumeParser");
+//import {ResumeParser} from "./parser/ResumeParser";
 
 export default class Main {
     public main() {
         let program: string = ""
         try {
-            program = fs.readFileSync(path.join(__dirname, "../resources", "example_resume.rmd")).toString('utf-8')
+            program = fs.readFileSync(path.join(__dirname, "../resources", "ResumeContent.rmd")).toString('utf-8')
         } catch (err) {
-            console.log("Failed to open file")
+            console.log("Failed to open file!")
             return
         }
+        console.log("will parse now")
         const programParsed = ResumeParser.parse(program)
+        console.log("parsed")
         console.log(JSON.stringify(programParsed))
     }
 }
